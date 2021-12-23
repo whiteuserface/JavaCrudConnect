@@ -1,9 +1,6 @@
 package Main;
 import java.util.Scanner;
 
-
-
-
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -57,7 +54,7 @@ public class Main {
 				String replaceId = sc.next();
 				System.out.println("관리자 비빌먼호를 입력해주세요");
 				String password = sc.next();
-				if(method.getPassword(replaceId).equals(password)) {
+				if(method.getPassword(replaceId).equals(password)) { //비밀번호가 같다면 새로운 데이터 받기
 				System.out.println("새로운 ID를 입력하세요");
 				String newId = sc.next();
 				System.out.println("새로운 password를 입력하세요");
@@ -66,28 +63,36 @@ public class Main {
 				String newAr = sc.next();
 				System.out.println("새로운 LV를 입력하세요");
 				int newLv = sc.nextInt();
-				method.replace(newId, newPs, newAr, newLv, replaceId);
-				} else {
+				method.replace(newId, newPs, newAr, newLv, replaceId); //새로운 정보를 replace함수로 보냄.
+				} else { //수정할 아이디의 비밀번호가 다르다면 예외처리 
 					System.out.println("비밀번호가 다릅니다!");
 				}
 				
 			} else if(menuNum == 4) {
 				System.out.println("삭제하실 ID를 입력하세요:");
 				String deleteId = sc.next();
+				System.out.println("삭제하실 아이디의 비밀번호를 입력하세요:");
+				String password = sc.next();
+				if(method.getPassword(deleteId).equals(password)) { //아이디를 받아 password 확인하고 해당 아이디의 비밀번호와 일치 시 실행 
 				method.DeleteId(deleteId);
+				} else { //비밀번호가 같지 않으면 실패
+					System.out.println("비밀번호가 다릅니다. 다시 시도하세요.");
+				}
 			}  else if(menuNum == 5) {
-				listMenu();
-				int listNum = sc.nextInt();
+				listMenu(); //메소드로 list메뉴 보여주기
+				int listNum = sc.nextInt(); //내부 리스트 넘버 받기
 				if(listNum == 1) {
 					method.idList();
 				} else if(listNum == 2) {
 					method.dateList();
+				} else {
+					System.out.println("잘못 입력! 다시 실행하세요!"); //1,2 번 외 다른 메뉴를 선택 시 오류 메세지
 				}
 			} 	else if(menuNum == 6) {
-				System.out.println("종료합니다.");
+				System.out.println("종료합니다."); //종료
 				oc = false;
 			} else {
-				System.out.println("잘못입력!");
+				System.out.println("잘못입력!"); //잘못 입력 시 다시 메뉴로 돌아감.
 				continue;
 			}
 		}
